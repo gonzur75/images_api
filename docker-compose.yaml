@@ -4,6 +4,8 @@ services:
        context: ./backend
     volumes:
       - ./backend:/app
+    env_file:
+      - ./backend/env/.env
     ports:
       - 8000:8000
     restart: on-failure

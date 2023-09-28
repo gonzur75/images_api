@@ -8,3 +8,5 @@ media/*
 .coverage
 
 .pytest_cache
+
+env/.env
