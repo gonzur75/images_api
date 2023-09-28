@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     # local
     'users.apps.UsersConfig',
-
+    'images.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
