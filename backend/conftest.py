@@ -4,6 +4,8 @@ import shutil
 import pytest
 
 from django.core.files.uploadedfile import SimpleUploadedFile
+from rest_framework.test import APIRequestFactory
+
 from images.models import Image
 from config import settings
 from django.test import override_settings
@@ -37,3 +39,8 @@ def image_handler(db, user):
 def image():
     yield SimpleUploadedFile('test_file.jpg',
                              content=open(os.path.join('test_files', 'test_image.jpeg'), 'rb').read())
+
+
+@pytest.fixture
+def api_request_factory():
+    return APIRequestFactory()

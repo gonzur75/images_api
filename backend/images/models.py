@@ -3,10 +3,12 @@ from django.db import models
 
 from images.validators import validate_file_type
 
+User = get_user_model()
+
 
 # Create your models here.
 class Image(models.Model):
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     url = models.FileField(upload_to='images/', validators=[validate_file_type])
 
