@@ -16,8 +16,8 @@ from django.test import override_settings
 def test_image_creation(image_handler, remove_test_data):
     image_handler = next(image_handler)
     assert isinstance(image_handler, Image)
-    assert image_handler .author.username == 'testUser'
-    assert image_handler .url.url == '/media/images/test_file.jpg'
-    assert image_handler .name == 'test_file.jpg'
-    assert str(image_handler ) == 'test_file.jpg'
+    assert image_handler.author.username == 'testUser'
+    assert image_handler.url.url == '/media/images/test_file.jpg'
+    assert image_handler.name == 'test_file.jpg'
+    assert str(image_handler) == 'test_file.jpg'
 

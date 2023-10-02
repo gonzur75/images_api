@@ -10,6 +10,8 @@ from images.models import Image
 from config import settings
 from django.test import override_settings
 
+from users.models import ThumbnailSize, Account
+
 
 @pytest.fixture
 def user(db, django_user_model):
@@ -45,3 +47,22 @@ def image():
 @pytest.fixture
 def api_request_factory():
     return APIRequestFactory()
+
+
+@pytest.fixture
+def thumbnail_size_handler(db, user):
+    thumbnail = ThumbnailSize.objects.create(
+        name='200px',
+        size=200,
+    )
+    return thumbnail
+
+
+@pytest.fixture()
+def account_db(db, thumbnail_size_handler):
+    size = thumbnail_size_handler
+    account = Account.objects.create(
+        name='Basic'
+    )
+    account.thumbnail_sizes.add(size)
+    return account
