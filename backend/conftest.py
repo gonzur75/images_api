@@ -14,8 +14,9 @@ from django.test import override_settings
 @pytest.fixture
 def user(db, django_user_model):
     return django_user_model.objects.create_user(
-        username='testuser',
-        password='testPass123'
+        username='testUser',
+        password='testPass123',
+        email="testuser@test.com"
     )
 
 
