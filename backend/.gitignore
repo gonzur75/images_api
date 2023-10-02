@@ -10,3 +10,5 @@ media/*
 .pytest_cache
 
 env/.env
+
+test_dir/*
