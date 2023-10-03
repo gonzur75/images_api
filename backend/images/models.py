@@ -27,7 +27,7 @@ class Image(models.Model):
 class Thumbnail(models.Model):
     image = models.ForeignKey("Image", related_name='thumbnails', on_delete=models.CASCADE)
     url = models.FileField(upload_to='resized_images/')
-    height = models.PositiveIntegerField()
+    size = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.url.name}"

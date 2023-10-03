@@ -27,6 +27,6 @@ def test_thumbnail_fields(image_handler, image):
     thumbnail = Thumbnail.objects.create(
         image=image_handler,
         url=image,
-        height=43
+        size=43
     )
-    assert [*vars(thumbnail)] == ['_state', 'id', 'image_id', 'url', 'height']
+    assert [*vars(thumbnail)] == ['_state', 'id', 'image_id', 'url', 'size']

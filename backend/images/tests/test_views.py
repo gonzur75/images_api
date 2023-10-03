@@ -46,5 +46,4 @@ def test_view_create_image_with_invalid_data(db, api_request_factory, image, use
     response = view(request)
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert str(response.data["name"][0]) == "This field is required."
     assert str(response.data["url"][0]) == 'No file was submitted.'

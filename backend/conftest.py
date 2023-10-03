@@ -28,7 +28,7 @@ def remove_test_data():
 
 
 @pytest.fixture
-@override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'test_dir', 'media'))
+@override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'test_dir', '/media'))
 def image_handler(db, user):
     image_object = Image.objects.create(
         author=user,
@@ -47,6 +47,16 @@ def image():
 @pytest.fixture
 def api_request_factory():
     return APIRequestFactory()
+
+
+@pytest.fixture()
+def create_test_thumbnail_serializer_data(db, image_handler):
+    image = next(image_handler)
+    serializer_data = {
+        'image_id': image.pk,
+        'sizes': [200]
+    }
+    return serializer_data
 
 
 @pytest.fixture
