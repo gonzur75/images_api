@@ -9,6 +9,8 @@ media/*
 
 .pytest_cache
 
+/__pycache__/*
+
 env/.env
 
 test_dir/*
