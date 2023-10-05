@@ -2,12 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from . import models
-from .models import Customer, Account, ThumbnailSize
-
-
-class CustomerInline(admin.StackedInline):
-    model = Customer
-    can_delete = False
+from .models import Account
 
 
 class AccountAdminConfig(admin.ModelAdmin):
@@ -15,24 +10,21 @@ class AccountAdminConfig(admin.ModelAdmin):
     list_filter = ("name",)
 
 
-class AccountInline(admin.StackedInline):
-    model = Account
-    can_delete = False
-
-
 class ThumbnailSizeAdminConfig(admin.ModelAdmin):
-    search_fields = ("name", "size")
-    list_filter = ("name",)
+    search_fields = ("id", "size")
+    list_filter = ("size",)
 
 
 class CustomUserDashboard(UserAdmin):
-    inlines = [CustomerInline]
-    list_display = ('id', 'username')
-    list_editable = ('username',)
-    list_display_links = ('id',)
+    list_display = ('id', 'username', 'account')
+    list_editable = ('account',)
+    list_display_links = ('id', 'username')
     ordering = ('-id',)
 
 
 admin.site.register(models.CustomUser, CustomUserDashboard)
 admin.site.register(models.Account, AccountAdminConfig)
 admin.site.register(models.ThumbnailSize, ThumbnailSizeAdminConfig)
+
+admin.site.site_header = 'Admin Panel'
+admin.site.site_title = 'Thumbnail provider'

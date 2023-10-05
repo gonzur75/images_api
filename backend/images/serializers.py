@@ -2,7 +2,6 @@ from images.models import Image
 from rest_framework import serializers
 
 from images.models import Thumbnail
-from users.models import ThumbnailSize, Customer, Account
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -18,12 +17,12 @@ class ThumbnailGeneratorSerializer(serializers.Serializer):
 
     def validate_sizes(self, value):
         user = self.context['user']
-        customer_sizes = [size for size in Customer.objects.get(user=user.id).account.thumbnail_sizes.all()]
+        customer_sizes = [size.size for size in user.account.thumbnail_sizes.all()]
 
         for size in value:
             if size not in customer_sizes:
                 raise serializers.ValidationError(
-                    f'Chosen height ({size} px) is not available in your account ({user.costumer.account})'
+                    f'Chosen height ({size} px) is not available in your account ({user.account})'
                 )
         return value
 
@@ -37,3 +36,7 @@ class ThumbnailGeneratorSerializer(serializers.Serializer):
         return value
 
 
+class ThumbnailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Thumbnail
+        fields = '__all__'

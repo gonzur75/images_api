@@ -15,12 +15,11 @@ def test_user_can_make_thumbnail(user, api_request_factory, image_handler):
         'api/v1/images/create_thumbnails/',
         {
             'image_id': image.pk,
-            'sizes': [200, 400, 600]
+            'sizes': [200]
         },
         format='json'
     )
     force_authenticate(request, user)
     response = view(request)
-    print(response)
     assert response.status_code == status.HTTP_200_OK
-    assert response.data.get('links')[0] == 'http://testserver/media/resized_images/test_resized_file.jpg'
+    assert response.data.get('links')[0] == 'http://testserver/media/resized_images/test_file_200.jpg'
