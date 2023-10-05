@@ -56,12 +56,15 @@ class ImageViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.Gene
 
             thumbnail_absolute_urls = [f'{request.build_absolute_uri(settings.MEDIA_URL)}{url}' for url in
                                        thumbnail_urls]
-            return Response({'links': thumbnail_absolute_urls})
+            if request.user.account.has_link:
+                original_image = f'{request.build_absolute_uri(settings.MEDIA_URL)}{image.url}'
+                return Response({'thumbnails': thumbnail_absolute_urls, 'original_image': original_image})
+            return Response({'thumbnails': thumbnail_absolute_urls})
 
         return Response(result.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['get'], detail=True)
-    def retrieve_image_thumbnails(self, request, pk=None):
+    def retrieve_thumbnails(self, request, pk=None):
         image = Image.objects.filter(pk=pk, author=request.user)
         if not image:
             raise ValidationError(f'Opps! Could not find image with id {pk}')
