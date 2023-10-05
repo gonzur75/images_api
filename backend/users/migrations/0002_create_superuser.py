@@ -15,13 +15,15 @@ def generate_superuser(apps, schema_editor):
         username=DJANGO_SU_NAME,
         email=DJANGO_SU_EMAIL,
         password=DJANGO_SU_PASSWORD,
+
     )
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('users', '0001_initial')
+        ('users', '0001_initial'),
     ]
+
     operations = [
         migrations.RunPython(generate_superuser)
     ]

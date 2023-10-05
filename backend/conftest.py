@@ -2,6 +2,7 @@ import os
 import shutil
 
 import pytest
+from django.contrib.auth import get_user_model
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APIRequestFactory
@@ -13,13 +14,15 @@ from django.test import override_settings
 from users.models import ThumbnailSize, Account
 
 
-@pytest.fixture
-def user(db, django_user_model):
-    return django_user_model.objects.create_user(
+@pytest.fixture(scope='function')
+def user(db,  account_db):
+    user = get_user_model().objects.create_user(
         username='testUser',
         password='testPass123',
-        email="testuser@test.com"
+        email="testuser@test.com",
+        account=account_db
     )
+    return user
 
 
 @pytest.fixture
@@ -59,20 +62,19 @@ def create_test_thumbnail_serializer_data(db, image_handler):
     return serializer_data
 
 
-@pytest.fixture
-def thumbnail_size_handler(db, user):
+@pytest.fixture(scope='function')
+def thumbnail_size_handler(db):
     thumbnail = ThumbnailSize.objects.create(
-        name='200px',
         size=200,
     )
     return thumbnail
 
 
-@pytest.fixture()
+@pytest.fixture(scope='function')
 def account_db(db, thumbnail_size_handler):
     size = thumbnail_size_handler
     account = Account.objects.create(
-        name='Basic'
+        name='test_Account'
     )
     account.thumbnail_sizes.add(size)
     return account

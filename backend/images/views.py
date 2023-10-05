@@ -10,7 +10,7 @@ from config import settings
 from images import serializers
 from images.helpers import thumbnail_create
 from images.models import Image, Thumbnail
-from images.serializers import ImageSerializer, ThumbnailGeneratorSerializer
+from images.serializers import ImageSerializer, ThumbnailGeneratorSerializer, ThumbnailSerializer
 
 
 class ImageViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
