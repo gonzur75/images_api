@@ -1,11 +1,26 @@
 services:
-  images_api:
+  backend:
     build:
-       context: ./backend
+      context: ./backend
     volumes:
       - ./backend:/app
     env_file:
       - ./backend/env/.env
     ports:
       - 8000:8000
+    environment:
+      - REDIS_HOST=cache
+    depends_on:
+      - cache
     restart: on-failure
+
+  cache:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - cache:/data
+    restart: on-failure
+volumes:
+    cache:
+

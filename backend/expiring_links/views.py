@@ -1,7 +1,8 @@
 import os
-from datetime import timedelta, timezone
+from datetime import timedelta
 from uuid import uuid4
 
+from django.utils import timezone
 from django.http import FileResponse
 from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
@@ -34,7 +35,7 @@ class ExpiringLinkViewSet(viewsets.ViewSet):
 
         return Response(result.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrive(self, request, token):
+    def retrieve(self, request, token):
         token = token.split('.')[0]
         obj = get_object_or_404(ExpiringLink, token=token)
         expiration_date = obj.created_at + timedelta(seconds=obj.duration)
