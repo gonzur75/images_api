@@ -15,6 +15,7 @@ def generate_superuser(apps, schema_editor):
         username=DJANGO_SU_NAME,
         email=DJANGO_SU_EMAIL,
         password=DJANGO_SU_PASSWORD,
+        account_id=1
 
     )
 

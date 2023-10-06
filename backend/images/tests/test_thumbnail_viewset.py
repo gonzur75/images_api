@@ -22,4 +22,4 @@ def test_user_can_make_thumbnail(user, api_request_factory, image_handler):
     force_authenticate(request, user)
     response = view(request)
     assert response.status_code == status.HTTP_200_OK
-    assert response.data.get('links')[0] == 'http://testserver/media/resized_images/test_file_200.jpg'
+    assert response.data.get('thumbnails')[0] == 'http://testserver/media/resized_images/test_file_200.jpg'
