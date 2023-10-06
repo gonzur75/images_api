@@ -8,7 +8,7 @@ from images.serializers import ImageSerializer
 from images.views import ImageViewSet
 
 
-def test_viewset_list_images_found(db, api_request_factory, user):
+def test_view_list_images_found(db, api_request_factory, user):
     url = "api/v1/images/1"
     view = ImageViewSet.as_view({"get": "list"})
 

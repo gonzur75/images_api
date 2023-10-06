@@ -78,3 +78,12 @@ def account_db(db, thumbnail_size_handler):
     )
     account.thumbnail_sizes.add(size)
     return account
+
+
+@pytest.fixture(scope='function')
+def test_exp_link_serializer_data(image_handler):
+    image = next(image_handler)
+    return {
+        'image_id': image.id,
+        'expiration_time': 500
+    }
