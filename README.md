@@ -1,6 +1,6 @@
 <h1 id="title" align="center">Image Manager REST API</h1>
 
-<p id="description">An application that allows user to store images. Based on three tier account it does generate thumbnails and fetch expiring_links for stored images images</p>
+<p id="description">This application lets users store images. Based on the chosen account type (free, pro, premium), it automatically generates thumbnails and provides expiring links for sharing images securely.</p>
 
   
   
